@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './App.css';
 import Field from './components/Field';
 import ProcessadorInput from './components/ProcessadorInput';
@@ -9,22 +10,17 @@ import placaVideoImg from './images/placa-video.png';
 import hddImg from './images/hdd.png';
 import ssdImg from './images/ssd.png';
 import placaMaeImg from './images/placa-mae.png';
-import memoriaRamImg from './images/memoria-ram.png'; // Importe a imagem da memória RAM
+import memoriaRamImg from './images/memoria-ram.png';
 
 const App = () => {
-  // Estado para os campos do usuário
   const [processador, setProcessador] = useState('');
   const [placaVideo, setPlacaVideo] = useState('');
-  const [memoriaRam, setMemoriaRam] = useState(null); // Estado para o campo de memória RAM
-  const [rotulo, setRotulo] = useState(null); // Estado para o campo de rótulo
+  const [ssd, setSsd] = useState(null);
+  const [hd, setHd] = useState(null);
+  const [placaMae, setPlacaMae] = useState(null);
+  const [ram, setRam] = useState(null);
+  const [tdpTotal, setTdpTotal] = useState(null);
 
-  // Opções para os campos enum
-  const enumOptions = [
-    { label: 'Upgrade', value: 'Upgrade' },
-    { label: 'Novo', value: 'Novo' },
-  ];
-
-  // Manipuladores de mudança dos campos
   const handleProcessadorChange = (e) => {
     setProcessador(e.target.value);
   };
@@ -33,17 +29,40 @@ const App = () => {
     setPlacaVideo(e.target.value);
   };
 
-  const handleMemoriaRamChange = (e) => {
-    setMemoriaRam(e.target.value);
+  const handleSsdChange = (e) => {
+    setSsd(e.target.value);
   };
 
-  const handleEnumChange = (field, value) => {
-    // Implemente a lógica para lidar com a alteração dos campos enum
-    // Por exemplo, você pode definir o estado correspondente aqui
+  const handleHdChange = (e) => {
+    setHd(e.target.value);
   };
 
-  const handleRotuloChange = (e) => {
-    setRotulo(e.target.value);
+  const handlePlacaMaeChange = (e) => {
+    setPlacaMae(e.target.value);
+  };
+
+  const handleRamChange = (e) => {
+    setRam(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    const data = {
+      processador: processador,
+      placaVideo: placaVideo,
+      ssd: ssd,
+      hd: hd,
+      placaMae: placaMae,
+      ram: ram
+    };
+
+    axios.post('https://localhost:44384/api/ComputersCreate', data)
+      .then(response => {
+        const { tdpTotal } = response.data;
+        setTdpTotal(tdpTotal);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   return (
@@ -66,8 +85,8 @@ const App = () => {
                 { label: 'HDD Desktop', value: 'HDDDesktop' },
                 { label: 'HDD Notebook', value: 'HDDNotebook' },
               ]}
-              value={null} // Defina o estado correspondente
-              onChange={(e) => handleEnumChange('hdd', e.target.value)}
+              value={hd}
+              onChange={handleHdChange}
             />
           </Field>
           <Field className="spaced-field" imagePath={ssdImg}>
@@ -77,8 +96,8 @@ const App = () => {
                 { label: 'SATA', value: 'Sata' },
                 { label: 'NVME', value: 'Nvme' },
               ]}
-              value={null} // Defina o estado correspondente
-              onChange={(e) => handleEnumChange('ssd', e.target.value)}
+              value={ssd}
+              onChange={handleSsdChange}
             />
           </Field>
         </div>
@@ -92,8 +111,8 @@ const App = () => {
                 { label: 'ATX', value: 'ATX' },
                 { label: 'ExtendedATX', value: 'ExtendedATX' },
               ]}
-              value={null} // Defina o estado correspondente
-              onChange={(e) => handleEnumChange('motherboard', e.target.value)}
+              value={placaMae}
+              onChange={handlePlacaMaeChange}
             />
           </Field>
           <Field className="spaced-field" imagePath={memoriaRamImg}>
@@ -105,11 +124,13 @@ const App = () => {
                 { label: 'Tri', value: 'Tri' },
                 { label: 'Quad', value: 'Quad' },
               ]}
-              value={memoriaRam} // Defina o estado correspondente
-              onChange={handleMemoriaRamChange}
+              value={ram}
+              onChange={handleRamChange}
             />
           </Field>
         </div>
+        <button onClick={handleSubmit}>Calcular</button>
+        {tdpTotal && <p>TDP Total: {tdpTotal}</p>}
       </div>
     </div>
   );
