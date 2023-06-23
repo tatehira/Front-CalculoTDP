@@ -38,8 +38,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <h2>Formulário</h2>
       <div className="container">
+        <h2 className="form-heading">Calculadora de TDP</h2>
         <div className="fields-container">
           <Field imagePath={processadorImg}>
             <ProcessadorInput value={processador} onChange={handleProcessadorChange} />
