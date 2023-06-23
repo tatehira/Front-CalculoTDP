@@ -7,8 +7,16 @@
   height: 100vh;
 }
 
-.fields-container {
+.form-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-container,
+.enum-container {
+  display: flex;
+  justify-content: center;
   gap: 16px;
 }
 
@@ -30,11 +38,6 @@
   margin-bottom: 8px;
 }
 
-.enum-container {
-  display: flex;
-  gap: 16px;
-  margin-top: 16px;
+.fields-container {
+  margin: 10px; /* Ajuste o valor da margem conforme necessário */
 }
-
-/* Restante dos estilos CSS do seu aplicativo */
-
