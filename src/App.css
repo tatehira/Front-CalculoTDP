@@ -1,38 +1,40 @@
-.App {
-  text-align: center;
+/* App.css */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.fields-container {
+  display: flex;
+  gap: 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.field {
+  width: 200px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: #f2f2f2;
+  border-radius: 8px;
+  margin-bottom: 16px;
 }
 
-.App-link {
-  color: #61dafb;
+.field img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 8px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.enum-container {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
 }
+
+/* Restante dos estilos CSS do seu aplicativo */
+
