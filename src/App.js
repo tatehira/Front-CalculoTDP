@@ -10,11 +10,13 @@ import hddImg from './images/hdd.png';
 import ssdImg from './images/ssd.png';
 import placaMaeImg from './images/placa-mae.png';
 import categoriaImg from './images/categoria.png';
+import memoriaRamImg from './images/memoria-ram.png'; // Importe a imagem da memória RAM
 
 const App = () => {
   // Estado para os campos do usuário
   const [processador, setProcessador] = useState('');
   const [placaVideo, setPlacaVideo] = useState('');
+  const [memoriaRam, setMemoriaRam] = useState(null); // Estado para o campo de memória RAM
 
   // Opções para os campos enum
   const enumOptions = [
@@ -29,6 +31,10 @@ const App = () => {
 
   const handlePlacaVideoChange = (e) => {
     setPlacaVideo(e.target.value);
+  };
+
+  const handleMemoriaRamChange = (e) => {
+    setMemoriaRam(e.target.value);
   };
 
   const handleEnumChange = (field, value) => {
@@ -65,7 +71,7 @@ const App = () => {
               label="SSD"
               options={[
                 { label: 'SATA', value: 'Sata' },
-                { label: 'NVMe', value: 'Nvme' },
+                { label: 'NVME', value: 'Nvme' },
               ]}
               value={null} // Defina o estado correspondente
               onChange={(e) => handleEnumChange('ssd', e.target.value)}
@@ -86,12 +92,17 @@ const App = () => {
               onChange={(e) => handleEnumChange('motherboard', e.target.value)}
             />
           </Field>
-          <Field className="spaced-field" imagePath={categoriaImg}>
+          <Field className="spaced-field" imagePath={memoriaRamImg}>
             <EnumSelect
-              label="Categoria"
-              options={enumOptions}
-              value={null} // Defina o estado correspondente
-              onChange={(e) => handleEnumChange('rotuloCategory', e.target.value)}
+              label="Memória RAM"
+              options={[
+                { label: 'Single', value: 'Single' },
+                { label: 'Dual', value: 'Dual' },
+                { label: 'Tri', value: 'Tri' },
+                { label: 'Quad', value: 'Quad' },
+              ]}
+              value={memoriaRam} // Defina o estado correspondente
+              onChange={handleMemoriaRamChange}
             />
           </Field>
         </div>
