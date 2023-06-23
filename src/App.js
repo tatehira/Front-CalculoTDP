@@ -9,7 +9,6 @@ import placaVideoImg from './images/placa-video.png';
 import hddImg from './images/hdd.png';
 import ssdImg from './images/ssd.png';
 import placaMaeImg from './images/placa-mae.png';
-import categoriaImg from './images/categoria.png';
 import memoriaRamImg from './images/memoria-ram.png'; // Importe a imagem da memória RAM
 
 const App = () => {
@@ -17,6 +16,7 @@ const App = () => {
   const [processador, setProcessador] = useState('');
   const [placaVideo, setPlacaVideo] = useState('');
   const [memoriaRam, setMemoriaRam] = useState(null); // Estado para o campo de memória RAM
+  const [rotulo, setRotulo] = useState(null); // Estado para o campo de rótulo
 
   // Opções para os campos enum
   const enumOptions = [
@@ -40,6 +40,10 @@ const App = () => {
   const handleEnumChange = (field, value) => {
     // Implemente a lógica para lidar com a alteração dos campos enum
     // Por exemplo, você pode definir o estado correspondente aqui
+  };
+
+  const handleRotuloChange = (e) => {
+    setRotulo(e.target.value);
   };
 
   return (
@@ -81,7 +85,7 @@ const App = () => {
         <div className="fields-container">
           <Field className="spaced-field" imagePath={placaMaeImg}>
             <EnumSelect
-              label="Placa-mãe"
+              label="Placa Mãe"
               options={[
                 { label: 'MicroATX', value: 'MicroATX' },
                 { label: 'MiniATX', value: 'MiniATX' },
