@@ -95,18 +95,19 @@ const App = () => {
   const handleSsdChange = (event, value) => {
     setSsd(value);
   };
-
+  
   const handleHdChange = (event, value) => {
     setHd(value);
   };
-
+  
   const handlePlacaMaeChange = (event, value) => {
     setPlacaMae(value);
   };
-
+  
   const handleRamChange = (event, value) => {
     setRam(value);
   };
+  
 
   const handleSubmit = () => {
     const data = {
@@ -274,7 +275,9 @@ const App = () => {
                   />
                 )}
                 value={placaMae}
-                onChange={(event, value) => handlePlacaMaeChange(event, value)}
+                onChange={(event, value) =>
+                  handlePlacaMaeChange(event, validateInput(value, placaMaeOptions))
+                }
               />
             </Field>
           </div>
@@ -295,7 +298,9 @@ const App = () => {
                   />
                 )}
                 value={ram}
-                onChange={(event, value) => handleRamChange(event, value)}
+                onChange={(event, value) =>
+                  handleRamChange(event, validateInput(value, ramOptions))
+                }
               />
             </Field>
           </div>
