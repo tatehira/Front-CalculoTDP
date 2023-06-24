@@ -1,8 +1,10 @@
 /* App.css */
 .form-heading {
   position: absolute;
-  top: 0;
+  top: 84px;
   left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
   transform: translateX(-50%);
 }
 
@@ -50,4 +52,28 @@
 
 .custom-autocomplete {
   width: 200px; /* Defina a largura desejada aqui */
+}
+
+.rounded-button {
+  border-radius: 20px; /* Ajuste o valor do raio conforme necessário */
+  padding: 10px 20px; /* Ajuste o preenchimento interno conforme necessário */
+  background-color: #f2f2f2; /* Cor de fundo do botão */
+  border: none; /* Remova a borda se necessário */
+  cursor: pointer;
+}
+
+.submit-button {
+  border-radius: 23px;
+  padding: 25px 20px;
+  background-color: #f2f2f2;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 123px;
+  right: 868px;
+}
+
+.spaced-field:hover {
+  transform: translateY(-5px); /* Ajuste a distância da levitação conforme necessário */
+  transition: transform 0.3s ease; /* Ajuste a duração e a função de suavização conforme necessário */
 }

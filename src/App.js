@@ -151,7 +151,7 @@ const App = () => {
                       {...params}
                       label="CPU"
                       autoComplete="off"
-                      className="custom-autocomplete"
+                      className="custom-autocomplete spaced-field" // Adicione a classe "spaced-field" aqui
                       inputProps={{
                         ...params.inputProps,
                         style: { width: '200px' }, // Defina a largura desejada aqui
@@ -176,7 +176,7 @@ const App = () => {
                       {...params}
                       label="GPU"
                       autoComplete="off"
-                      className="custom-autocomplete"
+                      className="custom-autocomplete spaced-field" // Adicione a classe "spaced-field" aqui
                       inputProps={{
                         ...params.inputProps,
                         style: { width: '200px' }, // Defina a largura desejada aqui
@@ -203,7 +203,7 @@ const App = () => {
                       {...params}
                       label="SSD"
                       autoComplete="off"
-                      className="custom-autocomplete"
+                      className="custom-autocomplete spaced-field" // Adicione a classe "spaced-field" aqui
                       inputProps={{
                         ...params.inputProps,
                         style: { width: '200px' }, // Defina a largura desejada aqui
@@ -228,7 +228,7 @@ const App = () => {
                       {...params}
                       label="HDD"
                       autoComplete="off"
-                      className="custom-autocomplete"
+                      className="custom-autocomplete spaced-field" // Adicione a classe "spaced-field" aqui
                       inputProps={{
                         ...params.inputProps,
                         style: { width: '200px' }, // Defina a largura desejada aqui
@@ -266,11 +266,11 @@ const App = () => {
             </Field>
           </div>
         </div>
-        <button className="submit-button" onClick={handleSubmit}>
-          Calcular TDP Total
-        </button>
-        {tdpTotal && <div className="result">TDP Total: {tdpTotal}W</div>}
       </div>
+      <button className="submit-button rounded-button" onClick={handleSubmit}>
+        Calcular TDP Total
+      </button>
+      {tdpTotal && <div className="result">TDP Total: {tdpTotal}W</div>}
     </div>
   );
   
