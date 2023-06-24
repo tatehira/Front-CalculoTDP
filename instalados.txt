@@ -1,0 +1,10 @@
+Requisitos necessários Instalados
+- react
+- node.js
+- yarn
+- npm
+- react-select
+- axios
+- yarn install --legacy-peer-deps
+- yarn install react@latest --legacy-peer-deps
+- yarn install @material-ui/lab @material-ui/core axios

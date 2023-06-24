@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 import './App.css';
 import Field from './components/Field';
 import ProcessadorInput from './components/ProcessadorInput';
@@ -13,6 +15,73 @@ import placaMaeImg from './images/placa-mae.png';
 import memoriaRamImg from './images/memoria-ram.png';
 
 const App = () => {
+  const processadorOptions = [
+    "Intel Core i9-11900K",
+    "Intel Core i7-11700K",
+    "Intel Core i5-11600K",
+    "Intel Core i9-10900K",
+    "Intel Core i7-10700K",
+    "Intel Core i5-10400F",
+    "Intel Core i7-9700K",
+    "Intel Core i9-12900K",
+    "Intel Core i7-12700K",
+    "Intel Core i5-12600K",
+    "Intel Core i9-11900KF",
+    "Intel Core i7-11700KF",
+    "Intel Core i9-10900KF",
+    "Intel Core i7-10700KF",
+    "Intel Core i7-9700KF"
+  ];
+
+  const placaVideoOptions = [
+    "NVIDIA GeForce RTX 3090",
+    "NVIDIA GeForce RTX 3080",
+    "NVIDIA GeForce RTX 3070",
+    "NVIDIA GeForce RTX 3060 Ti",
+    "NVIDIA GeForce RTX 2080 Ti",
+    "NVIDIA GeForce RTX 2080 Super",
+    "NVIDIA GeForce RTX 2070",
+    "NVIDIA GeForce GTX 1660 Super",
+    "AMD Radeon RX 6900 XT",
+    "AMD Radeon RX 6800 XT",
+    "AMD Radeon RX 6800",
+    "AMD Radeon RX 6700 XT",
+    "AMD Radeon RX 5700 XT",
+    "AMD Radeon RX 5600 XT"
+  ];
+
+  const ssdOptions = [
+    "SSD 120GB",
+    "SSD 240GB",
+    "SSD 480GB",
+    "SSD 1TB",
+    "SSD 2TB"
+  ];
+
+  const hdOptions = [
+    "HD 500GB",
+    "HD 1TB",
+    "HD 2TB",
+    "HD 4TB",
+    "HD 8TB"
+  ];
+
+  const placaMaeOptions = [
+    { label: 'Não Selecionado', value: 0 },
+    { label: 'MicroATX', value: 1 },
+    { label: 'MiniATX', value: 2 },
+    { label: 'ATX', value: 'ATX' },
+    { label: 'ExtendedATX', value: 3 }
+  ];
+
+  const ramOptions = [
+    { label: 'Não Selecionado', value: 0 },
+    { label: '4GB', value: 4 },
+    { label: '8GB', value: 8 },
+    { label: '16GB', value: 16 },
+    { label: '32GB', value: 32 }
+  ];
+
   const [processador, setProcessador] = useState('');
   const [placaVideo, setPlacaVideo] = useState('');
   const [ssd, setSsd] = useState(null);
@@ -21,28 +90,28 @@ const App = () => {
   const [ram, setRam] = useState(null);
   const [tdpTotal, setTdpTotal] = useState(null);
 
-  const handleProcessadorChange = (e) => {
-    setProcessador(e.target.value);
+  const handleProcessadorChange = (event, value) => {
+    setProcessador(value);
   };
 
-  const handlePlacaVideoChange = (e) => {
-    setPlacaVideo(e.target.value);
+  const handlePlacaVideoChange = (event, value) => {
+    setPlacaVideo(value);
   };
 
-  const handleSsdChange = (e) => {
-    setSsd(e.target.value);
+  const handleSsdChange = (event, value) => {
+    setSsd(value);
   };
 
-  const handleHdChange = (e) => {
-    setHd(e.target.value);
+  const handleHdChange = (event, value) => {
+    setHd(value);
   };
 
-  const handlePlacaMaeChange = (e) => {
-    setPlacaMae(e.target.value);
+  const handlePlacaMaeChange = (event, value) => {
+    setPlacaMae(value);
   };
 
-  const handleRamChange = (e) => {
-    setRam(e.target.value);
+  const handleRamChange = (event, value) => {
+    setRam(value);
   };
 
   const handleSubmit = () => {
@@ -65,75 +134,85 @@ const App = () => {
       });
   };
 
+  const validateInput = (value, options) => {
+    return options.includes(value) ? value : '';
+  };
+
   return (
     <div className="App">
       <div className="container">
         <h2 className="form-heading">Calculadora de TDP</h2>
         <div className="fields-container">
-          <Field imagePath={processadorImg}>
-            <ProcessadorInput value={processador} onChange={handleProcessadorChange} />
-          </Field>
-          <Field imagePath={placaVideoImg}>
-            <PlacaVideoInput value={placaVideo} onChange={handlePlacaVideoChange} />
-          </Field>
+          <div className="spaced-field">
+            <Field imagePath={processadorImg}>
+              <Autocomplete
+                options={processadorOptions}
+                renderInput={(params) => <TextField {...params} label="Processador" />}
+                value={processador}
+                onChange={(event, value) => handleProcessadorChange(event, validateInput(value, processadorOptions))}
+              />
+            </Field>
+          </div>
+          <div className="spaced-field">
+            <Field imagePath={placaVideoImg}>
+              <Autocomplete
+                options={placaVideoOptions}
+                renderInput={(params) => <TextField {...params} label="Placa de Vídeo" />}
+                value={placaVideo}
+                onChange={(event, value) => handlePlacaVideoChange(event, validateInput(value, placaVideoOptions))}
+              />
+            </Field>
+          </div>
         </div>
         <div className="fields-container">
-          <Field className="spaced-field" imagePath={hddImg}>
-            <EnumSelect
-              label="HDD"
-              options={[
-                { label: 'HDD Desktop', value: 'HDDDesktop' },
-                { label: 'HDD Notebook', value: 'HDDNotebook' },
-              ]}
-              value={hd}
-              onChange={handleHdChange}
-            />
-          </Field>
-          <Field className="spaced-field" imagePath={ssdImg}>
-            <EnumSelect
-              label="SSD"
-              options={[
-                { label: 'SATA', value: 'Sata' },
-                { label: 'NVME', value: 'Nvme' },
-              ]}
-              value={ssd}
-              onChange={handleSsdChange}
-            />
-          </Field>
+          <div className="spaced-field">
+            <Field imagePath={ssdImg}>
+              <Autocomplete
+                options={ssdOptions}
+                renderInput={(params) => <TextField {...params} label="SSD" />}
+                value={ssd}
+                onChange={(event, value) => handleSsdChange(event, validateInput(value, ssdOptions))}
+              />
+            </Field>
+          </div>
+          <div className="spaced-field">
+            <Field imagePath={hddImg}>
+              <Autocomplete
+                options={hdOptions}
+                renderInput={(params) => <TextField {...params} label="HD" />}
+                value={hd}
+                onChange={(event, value) => handleHdChange(event, validateInput(value, hdOptions))}
+              />
+            </Field>
+          </div>
         </div>
         <div className="fields-container">
-          <Field className="spaced-field" imagePath={placaMaeImg}>
-            <EnumSelect
-              label="Placa Mãe"
-              options={[
-                { label: 'MicroATX', value: 'MicroATX' },
-                { label: 'MiniATX', value: 'MiniATX' },
-                { label: 'ATX', value: 'ATX' },
-                { label: 'ExtendedATX', value: 'ExtendedATX' },
-              ]}
-              value={placaMae}
-              onChange={handlePlacaMaeChange}
-            />
-          </Field>
-          <Field className="spaced-field" imagePath={memoriaRamImg}>
-            <EnumSelect
-              label="Memória RAM"
-              options={[
-                { label: 'Single', value: 'Single' },
-                { label: 'Dual', value: 'Dual' },
-                { label: 'Tri', value: 'Tri' },
-                { label: 'Quad', value: 'Quad' },
-              ]}
-              value={ram}
-              onChange={handleRamChange}
-            />
-          </Field>
+          <div className="spaced-field">
+            <Field imagePath={placaMaeImg}>
+              <EnumSelect
+                label="Placa Mãe"
+                options={placaMaeOptions}
+                value={placaMae}
+                onChange={(event, value) => handlePlacaMaeChange(event, value)}
+              />
+            </Field>
+          </div>
+          <div className="spaced-field">
+            <Field imagePath={memoriaRamImg}>
+              <EnumSelect
+                label="Memória RAM"
+                options={ramOptions}
+                value={ram}
+                onChange={(event, value) => handleRamChange(event, value)}
+              />
+            </Field>
+          </div>
         </div>
-        <button onClick={handleSubmit}>Calcular</button>
-        {tdpTotal && <p>TDP Total: {tdpTotal}</p>}
+        <button className="submit-button" onClick={handleSubmit}>Calcular TDP Total</button>
+        {tdpTotal && <div className="result">TDP Total: {tdpTotal}W</div>}
       </div>
     </div>
-  );
-};
+  );  
+}
 
 export default App;
