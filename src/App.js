@@ -139,7 +139,7 @@ const App = () => {
   return (
     <div className="App">
       <div className="container">
-        <h2 className="form-heading">Calculadora de TDP</h2>
+        <h1 className="form-heading">Calculadora de TDP</h1>
         <div className="fields-container">
           <div className="spaced-field">
             <Field imagePath={processadorImg}>
