@@ -1,4 +1,10 @@
 /* App.css */
+
+body {
+  background-color:rgb(20, 22, 23);
+  color: #fff;
+}
+
 .form-heading {
   position: absolute;
   top: 84px;
@@ -6,6 +12,7 @@
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
+  color: #fff;
 }
 
 .container {
@@ -29,13 +36,13 @@
 }
 
 .field {
-  width: 350px;
+  width: 330px;
   height: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f2f2f2;
+  background-color: #5e5e5e;
   border-radius: 8px;
   margin-bottom: 16px;
 }
@@ -52,28 +59,26 @@
 
 .custom-autocomplete {
   width: 200px; /* Defina a largura desejada aqui */
+  color: #fff; 
 }
 
 .rounded-button {
   border-radius: 20px; /* Ajuste o valor do raio conforme necessário */
   padding: 10px 20px; /* Ajuste o preenchimento interno conforme necessário */
-  background-color: #f2f2f2; /* Cor de fundo do botão */
+  background-color: #5e5e5e; /* Cor de fundo do botão */
   border: none; /* Remova a borda se necessário */
   cursor: pointer;
+  color: #fff;
 }
 
 .submit-button {
   border-radius: 23px;
   padding: 25px 20px;
-  background-color: #f2f2f2;
+  background-color: #5e5e5e;
   border: none;
   cursor: pointer;
   position: fixed;
   bottom: 123px;
   right: 868px;
-}
-
-.spaced-field:hover {
-  transform: translateY(-5px); /* Ajuste a distância da levitação conforme necessário */
-  transition: transform 0.3s ease; /* Ajuste a duração e a função de suavização conforme necessário */
+  color: #fff;
 }
