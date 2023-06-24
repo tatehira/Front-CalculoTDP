@@ -114,23 +114,39 @@ const App = () => {
 
   const handleSubmit = () => {
     const data = {
-      processador: processador,
-      placaVideo: placaVideo,
+      cpu: processador,
+      gpu: placaVideo,
+      tdpCpu: 0,
+      tdpGpu: 0,
+      tdpRamSingles: 0,
+      tdpRamDual: 0,
+      tdpRamTri: 0,
+      tdpRamQuad: 0,
+      tdpHDDPC: 0,
+      tdpHDDNote: 0,
+      tdpSSDSata: 0,
+      tdpSSDNvme: 0,
+      tdpDefault: 0,
+      tdpTotal: 0,
+      tdpMotherboardMini: 0,
+      tdpMotherboardMicro: 0,
+      tdpMotherboardATX: 0,
+      tdpMotherboardExtended: 0,
+      ram: ram,
+      hdd: hd,
       ssd: ssd,
-      hd: hd,
-      placaMae: placaMae,
-      ram: ram
+      motherboard: placaMae
     };
 
-    axios.post('https://localhost:44384/api/ComputersCreate', data)
-      .then(response => {
-        const { tdpTotal } = response.data;
-        setTdpTotal(tdpTotal);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
+    axios.post('https://localhost:44384/api/Computer/ComputersCreate', data)
+    .then(response => {
+      const { tdpTotal } = response.data;
+      setTdpTotal(tdpTotal);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
 
   const validateInput = (value, options) => {
     return options.includes(value) ? value : '';
@@ -273,7 +289,6 @@ const App = () => {
       {tdpTotal && <div className="result">TDP Total: {tdpTotal}W</div>}
     </div>
   );
-  
-}
+};
 
 export default App;
