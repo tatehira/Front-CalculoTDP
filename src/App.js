@@ -248,7 +248,7 @@ const App = () => {
           <div className="spaced-field">
             <Field imagePath={placaMaeImg}>
               <EnumSelect
-                label="Placa Mãe"
+                label="Placa Mãe  "
                 options={placaMaeOptions}
                 value={placaMae}
                 onChange={(event, value) => handlePlacaMaeChange(event, value)}
@@ -258,7 +258,7 @@ const App = () => {
           <div className="spaced-field">
             <Field imagePath={memoriaRamImg}>
               <EnumSelect
-                label="RAM"
+                label="RAM  "
                 options={ramOptions}
                 value={ram}
                 onChange={(event, value) => handleRamChange(event, value)}
