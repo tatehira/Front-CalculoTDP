@@ -4,8 +4,6 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import './App.css';
 import Field from './components/Field';
-import ProcessadorInput from './components/ProcessadorInput';
-import PlacaVideoInput from './components/PlacaVideoInput';
 import EnumSelect from './components/EnumSelect';
 import processadorImg from './images/processador.png';
 import placaVideoImg from './images/placa-video.png';
@@ -145,44 +143,104 @@ const App = () => {
         <div className="fields-container">
           <div className="spaced-field">
             <Field imagePath={processadorImg}>
-              <Autocomplete
-                options={processadorOptions}
-                renderInput={(params) => <TextField {...params} label="Processador" />}
-                value={processador}
-                onChange={(event, value) => handleProcessadorChange(event, validateInput(value, processadorOptions))}
-              />
+              <div className="input-container">
+                <Autocomplete
+                  options={processadorOptions}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="CPU"
+                      autoComplete="off"
+                      className="custom-autocomplete"
+                      inputProps={{
+                        ...params.inputProps,
+                        style: { width: '200px' }, // Defina a largura desejada aqui
+                      }}
+                    />
+                  )}
+                  value={processador}
+                  onChange={(event, value) =>
+                    handleProcessadorChange(event, validateInput(value, processadorOptions))
+                  }
+                />
+              </div>
             </Field>
           </div>
           <div className="spaced-field">
             <Field imagePath={placaVideoImg}>
-              <Autocomplete
-                options={placaVideoOptions}
-                renderInput={(params) => <TextField {...params} label="Placa de Vídeo" />}
-                value={placaVideo}
-                onChange={(event, value) => handlePlacaVideoChange(event, validateInput(value, placaVideoOptions))}
-              />
+              <div className="input-container">
+                <Autocomplete
+                  options={placaVideoOptions}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="GPU"
+                      autoComplete="off"
+                      className="custom-autocomplete"
+                      inputProps={{
+                        ...params.inputProps,
+                        style: { width: '200px' }, // Defina a largura desejada aqui
+                      }}
+                    />
+                  )}
+                  value={placaVideo}
+                  onChange={(event, value) =>
+                    handlePlacaVideoChange(event, validateInput(value, placaVideoOptions))
+                  }
+                />
+              </div>
             </Field>
           </div>
         </div>
         <div className="fields-container">
           <div className="spaced-field">
             <Field imagePath={ssdImg}>
-              <Autocomplete
-                options={ssdOptions}
-                renderInput={(params) => <TextField {...params} label="SSD" />}
-                value={ssd}
-                onChange={(event, value) => handleSsdChange(event, validateInput(value, ssdOptions))}
-              />
+              <div className="input-container">
+                <Autocomplete
+                  options={ssdOptions}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="SSD"
+                      autoComplete="off"
+                      className="custom-autocomplete"
+                      inputProps={{
+                        ...params.inputProps,
+                        style: { width: '200px' }, // Defina a largura desejada aqui
+                      }}
+                    />
+                  )}
+                  value={ssd}
+                  onChange={(event, value) =>
+                    handleSsdChange(event, validateInput(value, ssdOptions))
+                  }
+                />
+              </div>
             </Field>
           </div>
           <div className="spaced-field">
             <Field imagePath={hddImg}>
-              <Autocomplete
-                options={hdOptions}
-                renderInput={(params) => <TextField {...params} label="HD" />}
-                value={hd}
-                onChange={(event, value) => handleHdChange(event, validateInput(value, hdOptions))}
-              />
+              <div className="input-container">
+                <Autocomplete
+                  options={hdOptions}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="HDD"
+                      autoComplete="off"
+                      className="custom-autocomplete"
+                      inputProps={{
+                        ...params.inputProps,
+                        style: { width: '200px' }, // Defina a largura desejada aqui
+                      }}
+                    />
+                  )}
+                  value={hd}
+                  onChange={(event, value) =>
+                    handleHdChange(event, validateInput(value, hdOptions))
+                  }
+                />
+              </div>
             </Field>
           </div>
         </div>
@@ -200,7 +258,7 @@ const App = () => {
           <div className="spaced-field">
             <Field imagePath={memoriaRamImg}>
               <EnumSelect
-                label="Memória RAM"
+                label="RAM"
                 options={ramOptions}
                 value={ram}
                 onChange={(event, value) => handleRamChange(event, value)}
@@ -208,11 +266,14 @@ const App = () => {
             </Field>
           </div>
         </div>
-        <button className="submit-button" onClick={handleSubmit}>Calcular TDP Total</button>
+        <button className="submit-button" onClick={handleSubmit}>
+          Calcular TDP Total
+        </button>
         {tdpTotal && <div className="result">TDP Total: {tdpTotal}W</div>}
       </div>
     </div>
-  );  
+  );
+  
 }
 
 export default App;
