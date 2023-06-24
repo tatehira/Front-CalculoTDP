@@ -27,8 +27,8 @@
 }
 
 .field {
-  width: 200px;
-  height: 200px;
+  width: 350px;
+  height: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,4 +46,8 @@
 
 .fields-container {
   margin: 10px; /* Ajuste o valor da margem conforme necessário */
+}
+
+.custom-autocomplete {
+  width: 200px; /* Defina a largura desejada aqui */
 }
