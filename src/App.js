@@ -49,35 +49,31 @@ const App = () => {
   ];
 
   const ssdOptions = [
-    "SSD 120GB",
-    "SSD 240GB",
-    "SSD 480GB",
-    "SSD 1TB",
-    "SSD 2TB"
+    { label: 'SSD Default', value: 0 },
+    { label: 'SSD Sata', value: 1 },
+    { label: 'SSD Nvme', value: 2 }
   ];
 
   const hdOptions = [
-    "HD 500GB",
-    "HD 1TB",
-    "HD 2TB",
-    "HD 4TB",
-    "HD 8TB"
+    { label: 'HD Default', value: 0 },
+    { label: 'HD Desktop', value: 2 },
+    { label: 'HD Notebook', value: 3 }
   ];
 
   const placaMaeOptions = [
     { label: 'Não Selecionado', value: 0 },
     { label: 'MicroATX', value: 1 },
     { label: 'MiniATX', value: 2 },
-    { label: 'ATX', value: 'ATX' },
-    { label: 'ExtendedATX', value: 3 }
+    { label: 'ATX', value: 3 },
+    { label: 'ExtendedATX', value: 4 }
   ];
 
   const ramOptions = [
     { label: 'Não Selecionado', value: 0 },
-    { label: '4GB', value: 4 },
-    { label: '8GB', value: 8 },
-    { label: '16GB', value: 16 },
-    { label: '32GB', value: 32 }
+    { label: '4GB', value: 1 },
+    { label: '8GB', value: 2 },
+    { label: '16GB', value: 3 },
+    { label: '32GB', value: 4 }
   ];
 
   const [processador, setProcessador] = useState('');
@@ -99,30 +95,47 @@ const App = () => {
   const handleSsdChange = (event, value) => {
     setSsd(value);
   };
-
+  
   const handleHdChange = (event, value) => {
     setHd(value);
   };
-
+  
   const handlePlacaMaeChange = (event, value) => {
     setPlacaMae(value);
   };
-
+  
   const handleRamChange = (event, value) => {
     setRam(value);
   };
+  
 
   const handleSubmit = () => {
     const data = {
-      processador: processador,
-      placaVideo: placaVideo,
+      cpu: processador,
+      gpu: placaVideo,
+      tdpCpu: 0,
+      tdpGpu: 0,
+      tdpRamSingles: 0,
+      tdpRamDual: 0,
+      tdpRamTri: 0,
+      tdpRamQuad: 0,
+      tdpHDDPC: 0,
+      tdpHDDNote: 0,
+      tdpSSDSata: 0,
+      tdpSSDNvme: 0,
+      tdpDefault: 0,
+      tdpTotal: 0,
+      tdpMotherboardMini: 0,
+      tdpMotherboardMicro: 0,
+      tdpMotherboardATX: 0,
+      tdpMotherboardExtended: 0,
+      ram: ram,
+      hdd: hd,
       ssd: ssd,
-      hd: hd,
-      placaMae: placaMae,
-      ram: ram
+      motherboard: placaMae
     };
 
-    axios.post('https://localhost:44384/api/ComputersCreate', data)
+    axios.post('https://localhost:44384/api/Computer/ComputersCreate', data)
       .then(response => {
         const { tdpTotal } = response.data;
         setTdpTotal(tdpTotal);
@@ -139,7 +152,7 @@ const App = () => {
   return (
     <div className="App">
       <div className="container">
-        <h2 className="form-heading">Calculadora de TDP</h2>
+        <h1 className="form-heading">Calculadora de TDP</h1>
         <div className="fields-container">
           <div className="spaced-field">
             <Field imagePath={processadorImg}>
@@ -151,10 +164,10 @@ const App = () => {
                       {...params}
                       label="CPU"
                       autoComplete="off"
-                      className="custom-autocomplete spaced-field" // Adicione a classe "spaced-field" aqui
+                      className="custom-autocomplete spaced-field"
                       inputProps={{
                         ...params.inputProps,
-                        style: { width: '200px' }, // Defina a largura desejada aqui
+                        style: { width: '200px' },
                       }}
                     />
                   )}
@@ -176,10 +189,10 @@ const App = () => {
                       {...params}
                       label="GPU"
                       autoComplete="off"
-                      className="custom-autocomplete spaced-field" // Adicione a classe "spaced-field" aqui
+                      className="custom-autocomplete spaced-field"
                       inputProps={{
                         ...params.inputProps,
-                        style: { width: '200px' }, // Defina a largura desejada aqui
+                        style: { width: '200px' },
                       }}
                     />
                   )}
@@ -203,10 +216,10 @@ const App = () => {
                       {...params}
                       label="SSD"
                       autoComplete="off"
-                      className="custom-autocomplete spaced-field" // Adicione a classe "spaced-field" aqui
+                      className="custom-autocomplete spaced-field"
                       inputProps={{
                         ...params.inputProps,
-                        style: { width: '200px' }, // Defina a largura desejada aqui
+                        style: { width: '200px' },
                       }}
                     />
                   )}
@@ -228,10 +241,10 @@ const App = () => {
                       {...params}
                       label="HDD"
                       autoComplete="off"
-                      className="custom-autocomplete spaced-field" // Adicione a classe "spaced-field" aqui
+                      className="custom-autocomplete spaced-field"
                       inputProps={{
                         ...params.inputProps,
-                        style: { width: '200px' }, // Defina a largura desejada aqui
+                        style: { width: '200px' },
                       }}
                     />
                   )}
@@ -247,21 +260,47 @@ const App = () => {
         <div className="fields-container">
           <div className="spaced-field">
             <Field imagePath={placaMaeImg}>
-              <EnumSelect
-                label="Placa Mãe"
+              <Autocomplete
                 options={placaMaeOptions}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Placa Mãe"
+                    autoComplete="off"
+                    className="custom-autocomplete spaced-field"
+                    inputProps={{
+                      ...params.inputProps,
+                      style: { width: '200px' },
+                    }}
+                  />
+                )}
                 value={placaMae}
-                onChange={(event, value) => handlePlacaMaeChange(event, value)}
+                onChange={(event, value) =>
+                  handlePlacaMaeChange(event, validateInput(value, placaMaeOptions))
+                }
               />
             </Field>
           </div>
           <div className="spaced-field">
             <Field imagePath={memoriaRamImg}>
-              <EnumSelect
-                label="RAM"
+              <Autocomplete
                 options={ramOptions}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="RAM"
+                    autoComplete="off"
+                    className="custom-autocomplete spaced-field"
+                    inputProps={{
+                      ...params.inputProps,
+                      style: { width: '200px' },
+                    }}
+                  />
+                )}
                 value={ram}
-                onChange={(event, value) => handleRamChange(event, value)}
+                onChange={(event, value) =>
+                  handleRamChange(event, validateInput(value, ramOptions))
+                }
               />
             </Field>
           </div>
@@ -273,7 +312,6 @@ const App = () => {
       {tdpTotal && <div className="result">TDP Total: {tdpTotal}W</div>}
     </div>
   );
-  
-}
+};
 
 export default App;

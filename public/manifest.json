@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Calculo TDP",
+  "name": "Calculadora de TDP",
   "icons": [
     {
       "src": "favicon.ico",
