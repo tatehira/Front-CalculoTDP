@@ -13,6 +13,7 @@ import memoriaRamImg from './images/memoria-ram.png';
 
 const App = () => {
   const processadorOptions = [
+    "Default",
     "Intel Core i9-11900K",
     "Intel Core i7-11700K",
     "Intel Core i5-11600K",
@@ -31,6 +32,7 @@ const App = () => {
   ];
 
   const placaVideoOptions = [
+    "Default",
     "NVIDIA GeForce RTX 3090",
     "NVIDIA GeForce RTX 3080",
     "NVIDIA GeForce RTX 3070",
@@ -49,30 +51,29 @@ const App = () => {
 
   const ssdOptions = [
     "Default",
-    "SSD Sata",
-    "SSD Nvme"
+    "Sata",
+    "Nvme"
   ];
-
   const hdOptions = [
     "Default",
-    "HD Desktop",
-    "HD Notebook"
+    "HDD-Desktop",
+    "HDD-Notebook"
   ];
 
   const placaMaeOptions = [
     "Default",
-    "MicroATX",
-    "MiniATX",
+    "Micro-ATX",
+    "Mini-ATX",
     "ATX",
     "ExtendedATX"
   ];
 
   const ramOptions = [
     "Default",
-    "Single Channel",
-    "Dual Channel",
-    "Tri Channel",
-    "Quad Channel"
+    "Single-Channel",
+    "Dual-Channel",
+    "Tri-Channel",
+    "Quad-Channel"
   ];
 
   const [processador, setProcessador] = useState('');
@@ -109,6 +110,18 @@ const App = () => {
   
 
   const handleSubmit = () => {
+    if (
+      processador === '' ||
+      placaVideo === '' ||
+      ssd === null ||
+      hd === null ||
+      placaMae === null ||
+      ram === null
+    ) {
+      alert("Nenhum campo foi preenchido!");
+      return;
+    }
+
     const data = {
       cpu: processador,
       gpu: placaVideo,
@@ -132,6 +145,13 @@ const App = () => {
       hdd: hd,
       ssd: ssd,
       motherboard: placaMae
+    };
+
+    const validateInput = (value, options) => {
+      if (value === "Default") {
+        return options[0]; // Define o valor padrão como o primeiro item do array
+      }
+      return options.includes(value) ? value : '';
     };
 
     axios.post('https://localhost:44384/api/Computer/ComputersCreate', data)
@@ -191,7 +211,6 @@ const App = () => {
                       className="custom-autocomplete spaced-field"
                       inputProps={{
                         ...params.inputProps,
-
                         style: { width: '200px' },
                       }}
                     />
@@ -309,7 +328,9 @@ const App = () => {
       <button className="submit-button rounded-button" onClick={handleSubmit}>
         Calcular TDP Total
       </button>
-      {tdpTotal && <div className="result">TDP Total: {tdpTotal}W</div>}
+      {tdpTotal !== null && (
+        <div className="result-box">O valor total de consumo é de: {tdpTotal}</div>
+      )}
     </div>
   );
 };
