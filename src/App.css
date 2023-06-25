@@ -95,3 +95,8 @@ body {
   left: 50%;
   transform: translateX(-50%);
 }
+
+.submit-button:hover {
+  background-color: #ffffff;
+  color: #000000; 
+}

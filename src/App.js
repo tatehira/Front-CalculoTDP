@@ -12,6 +12,9 @@ import placaMaeImg from './images/placa-mae.png';
 import memoriaRamImg from './images/memoria-ram.png';
 
 const App = () => {
+
+  const [isShaking, setIsShaking] = useState(false)
+  
   const processadorOptions = [
     "Intel Core i9-11900K",
     "Intel Core i7-11700K",
@@ -49,30 +52,30 @@ const App = () => {
 
   const ssdOptions = [
     "Default",
-    "SSD Sata",
-    "SSD Nvme"
+    "Sata",
+    "Nvme"
   ];
 
   const hdOptions = [
     "Default",
-    "HD Desktop",
-    "HD Notebook"
+    "HDD-Desktop",
+    "HDD-Notebook"
   ];
 
   const placaMaeOptions = [
     "Default",
-    "MicroATX",
-    "MiniATX",
+    "Micro-ATX",
+    "Mini-ATX",
     "ATX",
     "ExtendedATX"
   ];
 
   const ramOptions = [
     "Default",
-    "Single Channel",
-    "Dual Channel",
-    "Tri Channel",
-    "Quad Channel"
+    "Single-Channel",
+    "Dual-Channel",
+    "Tri-Channel",
+    "Quad-Channel"
   ];
 
   const [processador, setProcessador] = useState('');
@@ -109,6 +112,8 @@ const App = () => {
   
 
   const handleSubmit = () => {
+    setIsShaking(true);
+    
     const data = {
       cpu: processador,
       gpu: placaVideo,
@@ -142,6 +147,10 @@ const App = () => {
       .catch(error => {
         console.log(error);
       });
+
+      setTimeout(() => {
+        setIsShaking(false);
+      }, 400);
   };
 
   const validateInput = (value, options) => {
@@ -306,10 +315,9 @@ const App = () => {
           </div>
         </div>
       </div>
-      <button className="submit-button rounded-button" onClick={handleSubmit}>
+      <button className={`submit-button rounded-button ${isShaking ? 'shake' : ''}`} onClick={handleSubmit}>
         Calcular TDP Total
       </button>
-      {tdpTotal && <div className="result">TDP Total: {tdpTotal}W</div>}
     </div>
   );
 };
