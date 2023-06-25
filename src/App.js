@@ -4,7 +4,6 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import './App.css';
 import Field from './components/Field';
-import EnumSelect from './components/EnumSelect';
 import processadorImg from './images/processador.png';
 import placaVideoImg from './images/placa-video.png';
 import hddImg from './images/hdd.png';
@@ -49,31 +48,31 @@ const App = () => {
   ];
 
   const ssdOptions = [
-    { label: 'SSD Default', value: 0 },
-    { label: 'SSD Sata', value: 1 },
-    { label: 'SSD Nvme', value: 2 }
+    "Default",
+    "SSD Sata",
+    "SSD Nvme"
   ];
 
   const hdOptions = [
-    { label: 'HD Default', value: 0 },
-    { label: 'HD Desktop', value: 2 },
-    { label: 'HD Notebook', value: 3 }
+    "Default",
+    "HD Desktop",
+    "HD Notebook"
   ];
 
   const placaMaeOptions = [
-    { label: 'Não Selecionado', value: 0 },
-    { label: 'MicroATX', value: 1 },
-    { label: 'MiniATX', value: 2 },
-    { label: 'ATX', value: 3 },
-    { label: 'ExtendedATX', value: 4 }
+    "Default",
+    "MicroATX",
+    "MiniATX",
+    "ATX",
+    "ExtendedATX"
   ];
 
   const ramOptions = [
-    { label: 'Não Selecionado', value: 0 },
-    { label: '4GB', value: 1 },
-    { label: '8GB', value: 2 },
-    { label: '16GB', value: 3 },
-    { label: '32GB', value: 4 }
+    "Default",
+    "Single Channel",
+    "Dual Channel",
+    "Tri Channel",
+    "Quad Channel"
   ];
 
   const [processador, setProcessador] = useState('');
@@ -192,6 +191,7 @@ const App = () => {
                       className="custom-autocomplete spaced-field"
                       inputProps={{
                         ...params.inputProps,
+
                         style: { width: '200px' },
                       }}
                     />
