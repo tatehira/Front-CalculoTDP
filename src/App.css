@@ -100,3 +100,17 @@ body {
   background-color: #ffffff;
   color: #000000; 
 }
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.error-message-container {
+  position: fixed;
+  top: 0;
+  right: 5;
+  padding: 10px;
+  background-color: #ffcccc;
+  border-radius: 10px 10px 10px 10px;
+}

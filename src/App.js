@@ -12,10 +12,8 @@ import placaMaeImg from './images/placa-mae.png';
 import memoriaRamImg from './images/memoria-ram.png';
 
 const App = () => {
-
-  const [isShaking, setIsShaking] = useState(false)
-  
   const processadorOptions = [
+    "Default",
     "Intel Core i9-11900K",
     "Intel Core i7-11700K",
     "Intel Core i5-11600K",
@@ -34,6 +32,7 @@ const App = () => {
   ];
 
   const placaVideoOptions = [
+    "Default",
     "NVIDIA GeForce RTX 3090",
     "NVIDIA GeForce RTX 3080",
     "NVIDIA GeForce RTX 3070",
@@ -55,7 +54,6 @@ const App = () => {
     "Sata",
     "Nvme"
   ];
-
   const hdOptions = [
     "Default",
     "HDD-Desktop",
@@ -112,8 +110,17 @@ const App = () => {
   
 
   const handleSubmit = () => {
-    setIsShaking(true);
-    
+    if (
+    processador === null ||
+    placaVideo === null ||
+    ssd === null ||
+    hd === null ||
+    placaMae === null ||
+    ram === null
+  ) {
+    alert("Por favor, preencha todos os campos.");
+    return;
+  }
     const data = {
       cpu: processador,
       gpu: placaVideo,
@@ -139,6 +146,14 @@ const App = () => {
       motherboard: placaMae
     };
 
+    const validateInput = (value, options) => {
+      if (value === "Default") {
+        return options[0]; // Define o valor padrão como o primeiro item do array
+      }
+      return options.includes(value) ? value : '';
+    };
+    
+
     axios.post('https://localhost:44384/api/Computer/ComputersCreate', data)
       .then(response => {
         const { tdpTotal } = response.data;
@@ -147,10 +162,6 @@ const App = () => {
       .catch(error => {
         console.log(error);
       });
-
-      setTimeout(() => {
-        setIsShaking(false);
-      }, 400);
   };
 
   const validateInput = (value, options) => {
@@ -315,9 +326,10 @@ const App = () => {
           </div>
         </div>
       </div>
-      <button className={`submit-button rounded-button ${isShaking ? 'shake' : ''}`} onClick={handleSubmit}>
+      <button className="submit-button rounded-button" onClick={handleSubmit}>
         Calcular TDP Total
       </button>
+      {tdpTotal && <div className="result">TDP Total: {tdpTotal}W</div>}
     </div>
   );
 };
