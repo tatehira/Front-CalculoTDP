@@ -111,16 +111,17 @@ const App = () => {
 
   const handleSubmit = () => {
     if (
-    processador === null ||
-    placaVideo === null ||
-    ssd === null ||
-    hd === null ||
-    placaMae === null ||
-    ram === null
-  ) {
-    alert("Por favor, preencha todos os campos.");
-    return;
-  }
+      processador === '' ||
+      placaVideo === '' ||
+      ssd === null ||
+      hd === null ||
+      placaMae === null ||
+      ram === null
+    ) {
+      alert("Nenhum campo foi preenchido!");
+      return;
+    }
+
     const data = {
       cpu: processador,
       gpu: placaVideo,
@@ -152,7 +153,6 @@ const App = () => {
       }
       return options.includes(value) ? value : '';
     };
-    
 
     axios.post('https://localhost:44384/api/Computer/ComputersCreate', data)
       .then(response => {
@@ -211,7 +211,6 @@ const App = () => {
                       className="custom-autocomplete spaced-field"
                       inputProps={{
                         ...params.inputProps,
-
                         style: { width: '200px' },
                       }}
                     />
@@ -329,7 +328,9 @@ const App = () => {
       <button className="submit-button rounded-button" onClick={handleSubmit}>
         Calcular TDP Total
       </button>
-      {tdpTotal && <div className="result">TDP Total: {tdpTotal}W</div>}
+      {tdpTotal !== null && (
+        <div className="result-box">O valor total de consumo é de: {tdpTotal}</div>
+      )}
     </div>
   );
 };
