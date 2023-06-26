@@ -111,11 +111,11 @@ const App = () => {
 
   const handleSubmit = () => {
     if (
-      processador === '' ||
-      placaVideo === '' ||
-      ssd === null ||
-      hd === null ||
-      placaMae === null ||
+      processador === '' &&
+      placaVideo === '' &&
+      ssd === null &&
+      hd === null &&
+      placaMae === null &&
       ram === null
     ) {
       alert("Nenhum campo foi preenchido!");
@@ -168,10 +168,10 @@ const App = () => {
     return options.includes(value) ? value : '';
   };
 
-  return (
+return (
     <div className="App">
       <div className="container">
-        <h1 className="form-heading">Calculadora de TDP</h1>
+        <h1 className="form-heading">Calculo de potência em watts</h1>
         <div className="fields-container">
           <div className="spaced-field">
             <Field imagePath={processadorImg}>
@@ -186,7 +186,7 @@ const App = () => {
                       className="custom-autocomplete spaced-field"
                       inputProps={{
                         ...params.inputProps,
-                        style: { width: '200px' },
+                        style: { width: '200px', color: 'black' },
                       }}
                     />
                   )}
@@ -194,6 +194,9 @@ const App = () => {
                   onChange={(event, value) =>
                     handleProcessadorChange(event, validateInput(value, processadorOptions))
                   }
+                  ListboxProps={{
+                    style: { backgroundColor: 'black', color: 'white' },
+                  }}
                 />
               </div>
             </Field>
@@ -211,7 +214,7 @@ const App = () => {
                       className="custom-autocomplete spaced-field"
                       inputProps={{
                         ...params.inputProps,
-                        style: { width: '200px' },
+                        style: { width: '200px', color: 'black' },
                       }}
                     />
                   )}
@@ -219,6 +222,9 @@ const App = () => {
                   onChange={(event, value) =>
                     handlePlacaVideoChange(event, validateInput(value, placaVideoOptions))
                   }
+                  ListboxProps={{
+                    style: { backgroundColor: 'black', color: 'white' },
+                  }}
                 />
               </div>
             </Field>
@@ -226,31 +232,88 @@ const App = () => {
         </div>
         <div className="fields-container">
           <div className="spaced-field">
-            <Field imagePath={ssdImg}>
-              <div className="input-container">
+              <Field imagePath={placaMaeImg}>
                 <Autocomplete
-                  options={ssdOptions}
+                  options={placaMaeOptions}
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="SSD"
+                      label="Placa Mãe"
                       autoComplete="off"
                       className="custom-autocomplete spaced-field"
                       inputProps={{
                         ...params.inputProps,
-                        style: { width: '200px' },
+                        style: { width: '200px', color: 'black' },
                       }}
                     />
                   )}
-                  value={ssd}
+                  value={placaMae}
                   onChange={(event, value) =>
-                    handleSsdChange(event, validateInput(value, ssdOptions))
+                    handlePlacaMaeChange(event, validateInput(value, placaMaeOptions))
                   }
+                  ListboxProps={{
+                    style: { backgroundColor: 'black', color: 'white' },
+                  }}
                 />
-              </div>
-            </Field>
-          </div>
+              </Field>
+            </div>
+              <div className="spaced-field">
+              <Field imagePath={memoriaRamImg}>
+                <Autocomplete
+                  options={ramOptions}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="RAM"
+                      autoComplete="off"
+                      className="custom-autocomplete spaced-field"
+                      inputProps={{
+                        ...params.inputProps,
+                        style: { width: '200px', color: 'black' },
+                      }}
+                    />
+                  )}
+                  value={ram}
+                  onChange={(event, value) =>
+                    handleRamChange(event, validateInput(value, ramOptions))
+                  }
+                  ListboxProps={{
+                    style: { backgroundColor: 'black', color: 'white' },
+                  }}
+                />
+              </Field>
+            </div>
+        </div>
+        <div className="fields-container">
           <div className="spaced-field">
+              <Field imagePath={ssdImg}>
+                <div className="input-container">
+                  <Autocomplete
+                    options={ssdOptions}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="SSD"
+                        autoComplete="off"
+                        className="custom-autocomplete spaced-field"
+                        inputProps={{
+                          ...params.inputProps,
+                          style: { width: '200px',  color: 'black' },
+                        }}
+                      />
+                    )}
+                    value={ssd}
+                    onChange={(event, value) =>
+                      handleSsdChange(event, validateInput(value, ssdOptions))
+                    }
+                    ListboxProps={{
+                      style: { backgroundColor: 'black', color: 'white' },
+                    }}
+                  />
+                </div>
+              </Field>
+            </div>
+            <div className="spaced-field">
             <Field imagePath={hddImg}>
               <div className="input-container">
                 <Autocomplete
@@ -263,7 +326,7 @@ const App = () => {
                       className="custom-autocomplete spaced-field"
                       inputProps={{
                         ...params.inputProps,
-                        style: { width: '200px' },
+                        style: { width: '200px', color: 'black' },
                       }}
                     />
                   )}
@@ -271,68 +334,22 @@ const App = () => {
                   onChange={(event, value) =>
                     handleHdChange(event, validateInput(value, hdOptions))
                   }
+                  ListboxProps={{
+                    style: { backgroundColor: 'black', color: 'white' },
+                  }}
                 />
               </div>
             </Field>
           </div>
         </div>
-        <div className="fields-container">
-          <div className="spaced-field">
-            <Field imagePath={placaMaeImg}>
-              <Autocomplete
-                options={placaMaeOptions}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Placa Mãe"
-                    autoComplete="off"
-                    className="custom-autocomplete spaced-field"
-                    inputProps={{
-                      ...params.inputProps,
-                      style: { width: '200px' },
-                    }}
-                  />
-                )}
-                value={placaMae}
-                onChange={(event, value) =>
-                  handlePlacaMaeChange(event, validateInput(value, placaMaeOptions))
-                }
-              />
-            </Field>
-          </div>
-          <div className="spaced-field">
-            <Field imagePath={memoriaRamImg}>
-              <Autocomplete
-                options={ramOptions}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="RAM"
-                    autoComplete="off"
-                    className="custom-autocomplete spaced-field"
-                    inputProps={{
-                      ...params.inputProps,
-                      style: { width: '200px' },
-                    }}
-                  />
-                )}
-                value={ram}
-                onChange={(event, value) =>
-                  handleRamChange(event, validateInput(value, ramOptions))
-                }
-              />
-            </Field>
-          </div>
-        </div>
+        {tdpTotal !== null && <div className="result-box">O seu consumo em watts é: {tdpTotal}</div>}
       </div>
       <button className="submit-button rounded-button" onClick={handleSubmit}>
-        Calcular TDP Total
+        Calcular TDP
       </button>
-      {tdpTotal !== null && (
-        <div className="result-box">O valor total de consumo é de: {tdpTotal}</div>
-      )}
     </div>
   );
+
 };
 
 export default App;
